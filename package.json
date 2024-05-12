@@ -10,15 +10,18 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
     "expo": "~51.0.2",
     "expo-status-bar": "~1.12.1",
     "firebase": "^10.11.1",
-    "nativewind": "^4.0.1",
+    "nativewind": "^4.0.36",
     "react": "18.2.0",
     "react-hook-form": "^7.51.4",
     "react-native": "0.74.1",
-    "react-native-reanimated": "3.10.1",
+    "react-native-reanimated": "^3.10.1",
     "styled-components": "^6.1.11",
+    "tailwind-merge": "^2.3.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {
