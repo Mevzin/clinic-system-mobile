@@ -44,7 +44,7 @@ export default function Login() {
           />
 
           <Button 
-            label="SignIn"
+            label="Sign In"
             labelClasses="text-white"
             className="bg-cyan-800"
             size='lg'
