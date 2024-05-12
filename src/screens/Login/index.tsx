@@ -1,17 +1,11 @@
 import { Text,  View } from "react-native";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from "zod";
 import { SignInUserFormData } from "../../utils/types";
 import { signInUserFormSchema } from "../../utils/schemas";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
-
-const formSchema = z.object({
-    email: z.string().email('Please enter a valid email'),
-    full_name: z.string().min(3, 'full name must be at least 3 characters'),
-    password: z.string().min(8, 'Password must be at least 8 characters'),
-    });
+import  FormInput  from "../../components/FormController";
 
 export default function Login() {
   
@@ -22,13 +16,27 @@ export default function Login() {
         password: '',
       }
     })
-      
+
+    const inputList = [
+      {
+        name: 'email',
+        label: 'E-mail',
+        placeholder: 'E-mail',
+      },
+      {
+        name: 'password',
+        label: 'Senha',
+        placeholder: 'Senha',
+        type: 'password',
+      },
+    ]
+
     const signInUser = (data: SignInUserFormData) => console.log(data) 
 
     return(
         <View className="flex-1 justify-center items-center bg-slate-900">
           <Text className="text-white font-bold text-2xl">Login</Text>
-          <Controller 
+          {/* <Controller 
             name='email'
             control={control}
             render={({field: {value, onChange } }) => (
@@ -60,13 +68,27 @@ export default function Login() {
                 autoCapitalize="none"
               /> 
             )}
-          />
+          /> */}
           
-
+          <FormInput
+            control={control}
+            name={'email'}
+            label="Email"
+            className="w-[20rem] my-3"
+            autoCapitalize={false}
+          />
+          <FormInput
+            control={control}
+            name={'password'}
+            className="w-[20rem] my-3"
+            label="Senha"
+            secureTextEntry={true}
+            autoCapitalize={false}
+          />
           <Button 
             label="Sign In"
             labelClasses="text-white"
-            className="bg-cyan-800"
+            className="bg-cyan-800 mt-3"
             size='lg'
             onPress={handleSubmit(signInUser)}
           />

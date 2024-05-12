@@ -30,7 +30,9 @@ export const signInUserFormSchema = z.object({
     email: z
         .string({ required_error: 'E-mail é obrigatório' })
         .email('E-mail inválido'),
-    password: z.string({ required_error: 'Senha é obrigatório' }),
+    password: z.string({ required_error: 'Senha é obrigatório' }).refine((data) => data.trim() !== '', {
+        message: 'Senha invalida!'
+    }),
 })
 
 export const getFirebaseUserSchema = z.object({
