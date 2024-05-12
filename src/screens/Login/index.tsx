@@ -5,6 +5,7 @@ import { z } from "zod";
 import { SignInUserFormData } from "../../utils/types";
 import { signInUserFormSchema } from "../../utils/schemas";
 import { Button } from "../../components/Button";
+import { Input } from "../../components/Input";
 
 const formSchema = z.object({
     email: z.string().email('Please enter a valid email'),
@@ -25,11 +26,28 @@ export default function Login() {
 
     return(
         <View className="flex-1 justify-center items-center bg-slate-900">
-          <Text className="text-white">Login</Text>
-  
+          <Text className="text-white font-bold text-2xl">Login</Text>
+
+          <Input 
+            label="E-mail"
+            className="w-[20rem] my-3"
+            labelClasses="text-white"
+            inputClasses="border-white border-2 text-white"
+          />
+
+          <Input 
+            label="Senha"
+            secureTextEntry={true}
+            className="w-[20rem] mb-6"
+            labelClasses="text-white"
+            inputClasses="border-white border-2 text-white"
+          />
+
           <Button 
             label="SignIn"
-            className="h-[3rem] w-[6rem] bg-blue-500 "
+            labelClasses="text-white"
+            className="bg-cyan-800"
+            size='lg'
           />
             
 
