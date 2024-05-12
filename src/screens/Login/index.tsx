@@ -1,4 +1,4 @@
-import { Alert, Text, TextInput, View } from "react-native";
+import { Text,  View } from "react-native";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from "zod";
@@ -14,7 +14,8 @@ const formSchema = z.object({
     });
 
 export default function Login() {
-    const form = useForm<SignInUserFormData>({
+  
+    const {control, handleSubmit} = useForm<SignInUserFormData>({
       resolver: zodResolver(signInUserFormSchema),
       defaultValues: {
         email: '',
@@ -22,32 +23,52 @@ export default function Login() {
       }
     })
       
-        function handleSubmit() {}
+    const signInUser = (data: SignInUserFormData) => console.log(data) 
 
     return(
         <View className="flex-1 justify-center items-center bg-slate-900">
           <Text className="text-white font-bold text-2xl">Login</Text>
-
-          <Input 
-            label="E-mail"
-            className="w-[20rem] my-3"
-            labelClasses="text-white"
-            inputClasses="border-white border-2 text-white"
+          <Controller 
+            name='email'
+            control={control}
+            render={({field: {value, onChange } }) => (
+              <Input 
+              label="E-mail"
+              className="w-[20rem] my-3"
+              labelClasses="text-white"
+              inputClasses="border-white border-2 text-white"
+              value={value}
+              onChangeText={onChange}
+              autoCapitalize="none"
+            />
+            )}
           />
 
-          <Input 
-            label="Senha"
-            secureTextEntry={true}
-            className="w-[20rem] mb-6"
-            labelClasses="text-white"
-            inputClasses="border-white border-2 text-white"
+          <Controller 
+            name='password'
+            control={control}
+            render={({field: {value, onChange } }) => (
+              <Input 
+                label="Senha"
+                key='password'
+                secureTextEntry
+                className="w-[20rem] mb-6"
+                labelClasses="text-white"
+                inputClasses="border-white border-2 text-white"
+                value={value}
+                onChangeText={onChange}
+                autoCapitalize="none"
+              /> 
+            )}
           />
+          
 
           <Button 
             label="Sign In"
             labelClasses="text-white"
             className="bg-cyan-800"
             size='lg'
+            onPress={handleSubmit(signInUser)}
           />
             
 
