@@ -1,14 +1,16 @@
 import { Text,  View } from "react-native";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
-import { SignInUserFormData } from "../../utils/types";
-import { signInUserFormSchema } from "../../utils/schemas";
+import { SignInUserFormData } from "../../utils/schemas/types";
+import { signInUserFormSchema } from "../../utils/schemas/schemas";
 import { Button } from "../../components/Button";
-import { Input } from "../../components/Input";
 import  FormInput  from "../../components/FormController";
+import { useAuth } from "../../hook/Auth";
+import { FIREBASE_ERROR } from "../../utils/errors/firebase_errors";
 
 export default function Login() {
   
+    const { signIn } = useAuth()
     const {control, handleSubmit} = useForm<SignInUserFormData>({
       resolver: zodResolver(signInUserFormSchema),
       defaultValues: {
@@ -16,60 +18,23 @@ export default function Login() {
         password: '',
       }
     })
+    async function signInUser(data: SignInUserFormData) {
+      try {
+        // toast(process.env.FIREBASE_API_KEY || "teste", "default")
+        const userLogged = await signIn(data)
+        console.log(userLogged)
+      } catch (error) {
+        if((error as Error).message === FIREBASE_ERROR.INVALID_CREDENTIAL){
 
-    const inputList = [
-      {
-        name: 'email',
-        label: 'E-mail',
-        placeholder: 'E-mail',
-      },
-      {
-        name: 'password',
-        label: 'Senha',
-        placeholder: 'Senha',
-        type: 'password',
-      },
-    ]
-
-    const signInUser = (data: SignInUserFormData) => console.log(data) 
+          console.log(error)
+        }
+      }
+    } 
 
     return(
         <View className="flex-1 justify-center items-center bg-slate-900">
           <Text className="text-white font-bold text-2xl">Login</Text>
-          {/* <Controller 
-            name='email'
-            control={control}
-            render={({field: {value, onChange } }) => (
-              <Input 
-              label="E-mail"
-              className="w-[20rem] my-3"
-              labelClasses="text-white"
-              inputClasses="border-white border-2 text-white"
-              value={value}
-              onChangeText={onChange}
-              autoCapitalize="none"
-            />
-            )}
-          />
 
-          <Controller 
-            name='password'
-            control={control}
-            render={({field: {value, onChange } }) => (
-              <Input 
-                label="Senha"
-                key='password'
-                secureTextEntry
-                className="w-[20rem] mb-6"
-                labelClasses="text-white"
-                inputClasses="border-white border-2 text-white"
-                value={value}
-                onChangeText={onChange}
-                autoCapitalize="none"
-              /> 
-            )}
-          /> */}
-          
           <FormInput
             control={control}
             name={'email'}

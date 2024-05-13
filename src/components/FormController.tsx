@@ -14,7 +14,6 @@ const FormInput = ({control, name, secureTextEntry,...otherProps}: any) => {
             label={otherProps.label}        
             onChangeText={onChange}
             onBlur={onBlur}
-            autoCapitalize={false}
             secureTextEntry={secureTextEntry || false}
             {...otherProps}
         />
