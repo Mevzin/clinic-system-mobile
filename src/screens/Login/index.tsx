@@ -1,5 +1,5 @@
-import { Text,  View } from "react-native";
-import { Controller, useForm } from "react-hook-form";
+import { Text,  View, ToastAndroid } from "react-native";
+import { useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SignInUserFormData } from "../../utils/schemas/types";
 import { signInUserFormSchema } from "../../utils/schemas/schemas";
@@ -18,15 +18,13 @@ export default function Login() {
         password: '',
       }
     })
+
     async function signInUser(data: SignInUserFormData) {
       try {
-        // toast(process.env.FIREBASE_API_KEY || "teste", "default")
-        const userLogged = await signIn(data)
-        console.log(userLogged)
+        await signIn(data)
       } catch (error) {
         if((error as Error).message === FIREBASE_ERROR.INVALID_CREDENTIAL){
-
-          console.log(error)
+          ToastAndroid.show("Email ou senha invalidos!", 5000)
         }
       }
     } 
@@ -34,7 +32,6 @@ export default function Login() {
     return(
         <View className="flex-1 justify-center items-center bg-slate-900">
           <Text className="text-white font-bold text-2xl">Login</Text>
-
           <FormInput
             control={control}
             name={'email'}
@@ -57,8 +54,6 @@ export default function Login() {
             size='lg'
             onPress={handleSubmit(signInUser)}
           />
-            
-
         </View>
     )
 }
