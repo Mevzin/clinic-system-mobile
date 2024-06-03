@@ -56,12 +56,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
       throw new Error(error.message)
     })
 
+    
     await setDoc(doc(db, 'users', String(user.uid)), {
       id: user.uid,
-      name: user.displayName,
+      name: userData.name,
       photoURL: user.photoURL,
       email: user.email,
     }).catch((error) => {
+      console.log(error)
       throw new Error(error.message)
     })
   }

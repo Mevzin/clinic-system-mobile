@@ -1,16 +1,18 @@
-import { Text,  View, ToastAndroid } from "react-native";
+import { useAuth } from "../../hook/Auth";
 import { useForm } from "react-hook-form";
+import { Button } from "../../components/Button";
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useNavigation } from "@react-navigation/native";
+import { Text,  View, ToastAndroid } from "react-native";
+import  FormInput  from "../../components/FormController";
 import { SignInUserFormData } from "../../utils/schemas/types";
 import { signInUserFormSchema } from "../../utils/schemas/schemas";
-import { Button } from "../../components/Button";
-import  FormInput  from "../../components/FormController";
-import { useAuth } from "../../hook/Auth";
 import { FIREBASE_ERROR } from "../../utils/errors/firebase_errors";
 
-export default function Login() {
+export default function SignIn() {
   
     const { signIn } = useAuth()
+    const navigation = useNavigation();
     const {control, handleSubmit} = useForm<SignInUserFormData>({
       resolver: zodResolver(signInUserFormSchema),
       defaultValues: {
@@ -31,6 +33,13 @@ export default function Login() {
 
     return(
         <View className="flex-1 justify-center items-center bg-slate-900">
+            <Button 
+              label="Cadastro ->"
+              labelClasses="text-white"
+              className="mt-3 top-1 left-2 absolute"
+              size='default'
+              onPress={() => navigation.navigate('SignUp')}
+            />
           <Text className="text-white font-bold text-2xl">Login</Text>
           <FormInput
             control={control}
@@ -47,6 +56,7 @@ export default function Login() {
             secureTextEntry={true}
             autoCapitalize={false}
           />
+
           <Button 
             label="Sign In"
             labelClasses="text-white"

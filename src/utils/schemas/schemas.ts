@@ -11,6 +11,8 @@ export const userSchema = z
 
 export const signUpUserFormSchema = z
     .object({
+        name: z
+        .string({ required_error: 'Nome é obrigatório' }),
         email: z
             .string({ required_error: 'E-mail é obrigatório' })
             .email('E-mail inválido'),
