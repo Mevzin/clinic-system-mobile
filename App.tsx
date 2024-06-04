@@ -9,9 +9,9 @@ initializeApp(firebaseConfig)
 
 export default function App() {
   return (
-      <AuthProvider>
-          <StatusBar barStyle={'dark-content'}/>
-          <Routes />
-      </AuthProvider>
+    <AuthProvider>
+      <StatusBar barStyle={'light-content'} backgroundColor={"#0f172a"} />
+      <Routes />
+    </AuthProvider>
   );
 }
