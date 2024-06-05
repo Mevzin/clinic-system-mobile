@@ -12,7 +12,7 @@ export const userSchema = z
 export const signUpUserFormSchema = z
     .object({
         name: z
-        .string({ required_error: 'Nome é obrigatório' }),
+            .string({ required_error: 'Nome é obrigatório' }),
         email: z
             .string({ required_error: 'E-mail é obrigatório' })
             .email('E-mail inválido'),
@@ -46,4 +46,48 @@ export const getFirebaseUserSchema = z.object({
             photoURL: z.string().nullable(),
         })
         .nullable(),
+})
+
+export const patientSchema = z.object({
+    id: z.string(),
+    age: z.number(),
+    name: z.string(),
+    email: z.string(),
+    anamnesisId: z.string(),
+})
+
+export const createPatientFormSchema = z.object({
+    age: z.coerce
+        .number({ required_error: 'Idade é obrigatório' })
+        .max(100, 'Idade inválida')
+        .gte(-1, { message: 'Idade é obrigatório' }),
+    name: z
+        .string({ required_error: 'Nome é obrigatório' })
+        .refine((data) => data.trim() !== '', {
+            message: 'O campo nome não pode ser vazio',
+        })
+        .refine((data) => data.length >= 3, {
+            message: 'O campo nome deve conter mais de 3 caracteres',
+        }),
+    email: z
+        .string({ required_error: 'E-mail é obrigatório' })
+        .email({ message: 'E-mail inválido' }),
+})
+
+export const updatePatientFormSchema = z.object({
+    age: z.coerce
+        .number({ required_error: 'Idade é obrigatório' })
+        .max(100, 'Idade inválida')
+        .gte(-1, { message: 'Idade é obrigatório' }),
+    name: z
+        .string({ required_error: 'Nome é obrigatório' })
+        .refine((data) => data.trim() !== '', {
+            message: 'O campo nome não pode ser vazio',
+        })
+        .refine((data) => data.length >= 3, {
+            message: 'O campo nome deve conter mais de 3 caracteres',
+        }),
+    email: z
+        .string({ required_error: 'E-mail é obrigatório' })
+        .email({ message: 'E-mail inválido' }),
 })
