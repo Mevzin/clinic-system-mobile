@@ -1,6 +1,7 @@
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { MaterialIcons, FontAwesome6, FontAwesome5 } from '@expo/vector-icons'
 import Home from "../screens/home"
+import Patients from '../screens/patients';
 
 export const AppRoutes = () => {
     const Tab = createMaterialBottomTabNavigator();
@@ -22,7 +23,7 @@ export const AppRoutes = () => {
                     />
                 ))
             }} />
-            <Tab.Screen name="Pacientes" component={Home} options={{
+            <Tab.Screen name="Pacientes" component={Patients} options={{
                 tabBarIcon: (({ color }) => (
                     <FontAwesome6
                         name='user-group'
