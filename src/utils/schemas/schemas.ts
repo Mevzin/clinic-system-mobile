@@ -53,6 +53,7 @@ export const patientSchema = z.object({
     name: z.string(),
     email: z.string(),
     anamnesisId: z.string(),
+    photoURL: z.string().optional(),
 })
 
 export const createPatientFormSchema = z.object({
@@ -71,6 +72,7 @@ export const createPatientFormSchema = z.object({
     email: z
         .string({ required_error: 'E-mail é obrigatório' })
         .email({ message: 'E-mail inválido' }),
+    photoURL: z.string(),
 })
 
 export const updatePatientFormSchema = z.object({
@@ -89,4 +91,5 @@ export const updatePatientFormSchema = z.object({
     email: z
         .string({ required_error: 'E-mail é obrigatório' })
         .email({ message: 'E-mail inválido' }),
+    photoURL: z.string(),
 })
