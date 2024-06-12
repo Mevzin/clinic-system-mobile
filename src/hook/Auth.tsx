@@ -3,7 +3,7 @@ import { ReactNode, createContext, useContext, useState } from "react"
 import { GetFirebaseUserData, SignInUserFormData, SignUpUserFormData, UserData } from "../utils/schemas/types"
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut as signOutFirebase, } from 'firebase/auth'
 import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore'
-import { MMKV, useMMKV } from 'react-native-mmkv'
+import { MMKV } from 'react-native-mmkv'
 
 interface AuthProviderProps {
   children: ReactNode
