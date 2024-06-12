@@ -2,9 +2,12 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import { MaterialIcons, FontAwesome6, FontAwesome5 } from '@expo/vector-icons'
 import Home from "../screens/home"
 import Patients from '../screens/patients';
+import { useAuth } from '../hook/Auth';
+import { Image } from 'react-native';
 
 export const AppRoutes = () => {
     const Tab = createMaterialBottomTabNavigator();
+    const { user } = useAuth();
 
     return (
         <Tab.Navigator
@@ -12,7 +15,7 @@ export const AppRoutes = () => {
             activeColor='#e2e8f0'
             inactiveColor="#475569"
             activeIndicatorStyle={{ backgroundColor: '#1e293b' }}
-            barStyle={{ backgroundColor: '#0f172a', borderTopColor: '#cbd5e1', borderStyle: 'solid', borderWidth: 1 }}
+            barStyle={{ backgroundColor: '#0f172a', borderTopColor: '#cbd5e1', borderStyle: 'solid', borderWidth: 1, height: 70 }}
         >
             <Tab.Screen name="Dashboard" component={Home} options={{
                 tabBarIcon: (({ color }) => (
@@ -52,7 +55,7 @@ export const AppRoutes = () => {
             }} />
             <Tab.Screen name="Perfil" component={Home} options={{
                 tabBarIcon: (({ color }) => (
-                    <FontAwesome5
+                    user.photoURL ? <Image source={{ uri: user.photoURL }} className='w-[2rem] h-[2rem] rounded-full' /> : <FontAwesome5
                         name='user-tie'
                         size={24}
                         color={color}
