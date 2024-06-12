@@ -19,7 +19,7 @@ interface AuthContextData {
 const AuthContext = createContext<AuthContextData>({} as AuthContextData)
 
 export function AuthProvider({ children }: AuthProviderProps) {
-  const storage = new MMKV({id: 'clinicApp'})
+  const storage = new MMKV({ id: 'clinicApp' })
   const auth = getAuth()
   const db = getFirestore()
   const [data, setData] = useState<UserData>(() => {
@@ -35,7 +35,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   async function signIn(userData: SignInUserFormData): Promise<void> {
     await signInWithEmailAndPassword(auth, userData.email, userData.password)
       .then(async (userCredential) => {
-        
+
         const docRef = doc(db, 'users', userCredential.user.uid)
         const userFirestore = await getDoc(docRef)
         const userData = userSchema.parse(userFirestore.data())
@@ -56,7 +56,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       throw new Error(error.message)
     })
 
-    
+
     await setDoc(doc(db, 'users', String(user.uid)), {
       id: user.uid,
       name: userData.name,
@@ -81,7 +81,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   return (
     <AuthContext.Provider
-      value={{user: data, signIn, signUp, signOut }}
+      value={{ user: data, signIn, signUp, signOut }}
     >
       {children}
     </AuthContext.Provider>
